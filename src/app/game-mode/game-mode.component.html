@@ -1,0 +1,43 @@
+<div class="mode" style="display:block">
+  <canvas #gameCanvas id="game-canvas"></canvas>
+
+  <div class="hud">
+    <div class="hud-row hud-top">
+      <div class="hud-card">
+        <div class="hud-label">Speed</div>
+        <div class="hud-value"><span>{{speed}}</span><small> km/h</small></div>
+      </div>
+      <div class="hud-card hud-section">
+        <div class="hud-label">Now Showing</div>
+        <div class="hud-value" [style.color]="currentSectionColor">{{currentSection}}</div>
+        <div class="hud-hint">{{interactHint}}</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-label">Distance</div>
+        <div class="hud-value"><span>{{distance}}</span><small> m</small></div>
+      </div>
+    </div>
+    <div class="hud-row hud-bottom">
+      <div class="controls-help">
+        <kbd>W</kbd>/<kbd>↑</kbd> go &nbsp;·&nbsp;
+        <kbd>S</kbd>/<kbd>↓</kbd> brake &nbsp;·&nbsp;
+        <kbd>A</kbd>/<kbd>D</kbd> steer &nbsp;·&nbsp;
+        <kbd>Mouse</kbd> look around &nbsp;·&nbsp;
+        <kbd>E</kbd> read sign &nbsp;·&nbsp;
+        <kbd>Esc</kbd> close
+      </div>
+      <button class="tour-btn" [attr.data-active]="autoMode ? '1' : '0'" (click)="toggleAutoTour()">
+        {{autoMode ? '⏹ Manual Drive' : '▶ Auto Tour'}}
+      </button>
+    </div>
+  </div>
+
+  <!-- Section detail panel -->
+  <div id="section-panel" class="section-panel" [class.hidden]="!panelOpen">
+    <button class="close-btn" (click)="closePanel()">×</button>
+    <div class="panel-tag" [style.color]="panelTagColor" [style.borderColor]="panelTagBorderColor">{{panelTag}}</div>
+    <h2>{{panelTitle}}</h2>
+    <div class="panel-subtitle">{{panelSubtitle}}</div>
+    <div class="panel-body" [innerHTML]="panelBodySafe"></div>
+  </div>
+</div>

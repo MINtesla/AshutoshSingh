@@ -1,0 +1,566 @@
+<div id="static-mode" class="mode">
+  <div class="sp">
+
+    <!-- STICKY NAV -->
+    <nav class="sp-nav" id="sp-nav">
+      <div class="sp-nav-inner">
+        <a class="sp-logo" href="#sp-hero">
+          <span class="sp-logo-box">A</span>shutosh<span class="sp-logo-dot">.</span>
+        </a>
+        <div class="sp-nav-links">
+          <a href="#sp-about"      class="sp-nl">About</a>
+          <a href="#sp-experience" class="sp-nl">Experience</a>
+          <a href="#sp-projects"   class="sp-nl">Projects</a>
+          <a href="#sp-skills"     class="sp-nl">Skills</a>
+          <a href="#sp-contact"    class="sp-nl">Contact</a>
+        </div>
+        <div class="sp-nav-right">
+          <span class="sp-avail"><span class="sp-avail-dot"></span>Open to work</span>
+          <button class="sp-nav-cta" (click)="openContact.emit()">Hire Me</button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="sp-hero" id="sp-hero">
+      <div class="sp-hero-glow"></div>
+      <div class="sp-hero-grid-bg"></div>
+      <div class="sp-hero-inner">
+        <div class="sp-hero-left">
+          <div class="sp-pill sp-pill-green">
+            <span class="sp-pulse-dot"></span>Available for full-time &amp; freelance
+          </div>
+          <h1 class="sp-h1">
+            Senior Software<br/>Engineer building<br/>
+            <span class="sp-grad-text">systems at scale.</span>
+          </h1>
+          <p class="sp-hero-sub">
+            3+ years crafting high-throughput, low-latency backend systems for
+            telecom platforms handling <strong>millions of transactions per day</strong>
+            — using Java, Spring Boot, Kafka &amp; gRPC.
+          </p>
+          <div class="sp-hero-btns">
+            <button class="sp-btn-primary" (click)="openContact.emit()">Let's Talk <span class="sp-arrow">→</span></button>
+            <a class="sp-btn-ghost" href="assets/cv.pdf" download>Download CV ↓</a>
+          </div>
+          <div class="sp-hero-stats">
+            <div class="sp-stat">
+              <div class="sp-stat-row"><span class="sp-stat-n" data-count="35">0</span><span class="sp-stat-u">%</span></div>
+              <div class="sp-stat-l">Throughput Boost</div>
+            </div>
+            <div class="sp-stat-div"></div>
+            <div class="sp-stat">
+              <div class="sp-stat-row"><span class="sp-stat-n" data-count="40">0</span><span class="sp-stat-u">%</span></div>
+              <div class="sp-stat-l">Fewer Incidents</div>
+            </div>
+            <div class="sp-stat-div"></div>
+            <div class="sp-stat">
+              <div class="sp-stat-row"><span class="sp-stat-n" data-count="20">0</span><span class="sp-stat-u">+</span></div>
+              <div class="sp-stat-l">Prod Features</div>
+            </div>
+            <div class="sp-stat-div"></div>
+            <div class="sp-stat">
+              <div class="sp-stat-row"><span class="sp-stat-n" data-count="100">0</span><span class="sp-stat-u">%</span></div>
+              <div class="sp-stat-l">On-Time Delivery</div>
+            </div>
+          </div>
+        </div>
+        <div class="sp-hero-right">
+          <div class="sp-code-win">
+            <div class="sp-code-bar">
+              <div class="sp-dots"><span></span><span></span><span></span></div>
+              <div class="sp-code-file">TrafficSegregationService.java</div>
+            </div>
+            <pre class="sp-code"><span class="ck">&#64;Service</span>
+<span class="ck">&#64;Slf4j</span>
+<span class="cc">public class</span> <span class="cg">TrafficSegregationService</span> &#123;
+
+  <span class="ck">&#64;Autowired</span>
+  <span class="cc">private</span> <span class="cg">MsisdnCacheService</span> cacheService;
+  <span class="ck">&#64;Autowired</span>
+  <span class="cc">private</span> <span class="cg">CuigForwarderService</span> forwarder;
+
+  <span class="cc">public</span> <span class="cg">CompletableFuture</span>&lt;<span class="cg">RoutingDecision</span>&gt;
+        route(<span class="cg">TrafficEvent</span> event) &#123;
+
+    <span class="cc">return</span> <span class="cg">CompletableFuture</span>
+      .supplyAsync(() -&gt;
+          cacheService.lookup(event.getMsisdn()))
+      .thenApply(sub -&gt; evaluate(event, sub))
+      .thenCompose(forwarder::dispatch)
+      .exceptionally(ex -&gt; &#123;
+        log.error(<span class="cs">"routing failed"</span>, ex);
+        <span class="cc">return</span> <span class="cg">RoutingDecision</span>.fallback();
+      &#125;);
+  &#125;
+&#125;</pre>
+          </div>
+          <div class="sp-hero-badges">
+            <span class="sp-badge">Java 17</span>
+            <span class="sp-badge">Spring Boot</span>
+            <span class="sp-badge">Apache Kafka</span>
+            <span class="sp-badge">gRPC</span>
+            <span class="sp-badge">PostgreSQL</span>
+            <span class="sp-badge">Docker</span>
+            <span class="sp-badge">Kubernetes</span>
+            <span class="sp-badge">AWS</span>
+          </div>
+        </div>
+      </div>
+      <a class="sp-scroll-hint" href="#sp-about">↓ Scroll to explore</a>
+    </section>
+
+    <!-- TICKER -->
+    <div class="sp-ticker" aria-hidden="true">
+      <div class="sp-ticker-track">
+        <span>Java</span><span class="sp-tkdot">✦</span>
+        <span>Spring Boot</span><span class="sp-tkdot">✦</span>
+        <span>Apache Kafka</span><span class="sp-tkdot">✦</span>
+        <span>gRPC</span><span class="sp-tkdot">✦</span>
+        <span>Microservices</span><span class="sp-tkdot">✦</span>
+        <span>PostgreSQL</span><span class="sp-tkdot">✦</span>
+        <span>Docker</span><span class="sp-tkdot">✦</span>
+        <span>Kubernetes</span><span class="sp-tkdot">✦</span>
+        <span>AWS</span><span class="sp-tkdot">✦</span>
+        <span>System Design</span><span class="sp-tkdot">✦</span>
+        <span>Distributed Systems</span><span class="sp-tkdot">✦</span>
+        <span>CompletableFuture</span><span class="sp-tkdot">✦</span>
+        <span>Java</span><span class="sp-tkdot">✦</span>
+        <span>Spring Boot</span><span class="sp-tkdot">✦</span>
+        <span>Apache Kafka</span><span class="sp-tkdot">✦</span>
+        <span>gRPC</span><span class="sp-tkdot">✦</span>
+        <span>Microservices</span><span class="sp-tkdot">✦</span>
+        <span>PostgreSQL</span><span class="sp-tkdot">✦</span>
+        <span>Docker</span><span class="sp-tkdot">✦</span>
+        <span>Kubernetes</span><span class="sp-tkdot">✦</span>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section class="sp-section sp-about-sec" id="sp-about" data-reveal>
+      <div class="sp-container">
+        <div class="sp-about-grid">
+          <div class="sp-about-photo-col">
+            <div class="sp-photo-card">
+              <img src="assets/photo.jpg" alt="Ashutosh Singh" class="sp-photo-img" (error)="$event.target.style.display='none'" />
+              <div class="sp-photo-avatar">AS</div>
+              <div class="sp-photo-glow"></div>
+            </div>
+            <div class="sp-photo-meta">
+              <div class="sp-pm-row"><span class="sp-pm-k">Location</span><span class="sp-pm-v">Gurgaon, India</span></div>
+              <div class="sp-pm-row"><span class="sp-pm-k">Role</span><span class="sp-pm-v">Senior SDE</span></div>
+              <div class="sp-pm-row"><span class="sp-pm-k">Company</span><span class="sp-pm-v">Comviva</span></div>
+              <div class="sp-pm-row"><span class="sp-pm-k">Experience</span><span class="sp-pm-v">3+ Years</span></div>
+            </div>
+            <div class="sp-socials">
+              <a href="tel:+919667952897" class="sp-social-link">
+                <span class="sp-social-icon">📞</span>+91 9667952897
+              </a>
+              <a href="mailto:ashusig2@gmail.com" class="sp-social-link">
+                <span class="sp-social-icon">✉</span>ashusig2@gmail.com
+              </a>
+              <a href="#" class="sp-social-link">
+                <span class="sp-social-icon">in</span>LinkedIn
+              </a>
+              <a href="#" class="sp-social-link">
+                <span class="sp-social-icon">⌥</span>GitHub
+              </a>
+            </div>
+          </div>
+          <div class="sp-about-text-col">
+            <div class="sp-eyebrow">ABOUT ME</div>
+            <h2 class="sp-h2">I build the backbone<br/>of real-time systems.</h2>
+            <p class="sp-body">
+              I'm a Senior Software Engineer at Comviva (Tech Mahindra) specialising in
+              high-throughput distributed backend systems. My day-to-day involves designing
+              microservices that process millions of telecom events with sub-second latency —
+              owning everything from low-level design to production stabilisation.
+            </p>
+            <p class="sp-body">
+              I believe in zero-defect delivery, performance-first thinking, and owning the
+              full SDLC. Every feature I ship goes out with 100% First-Time-Right and
+              On-Time Delivery — not just as a metric but as a habit.
+            </p>
+            <div class="sp-about-highlights">
+              <div class="sp-ah">
+                <div class="sp-ah-num">3+</div>
+                <div class="sp-ah-lbl">Years<br/>Experience</div>
+              </div>
+              <div class="sp-ah">
+                <div class="sp-ah-num">2</div>
+                <div class="sp-ah-lbl">Production<br/>Platforms</div>
+              </div>
+              <div class="sp-ah">
+                <div class="sp-ah-num">8.8</div>
+                <div class="sp-ah-lbl">B.Tech<br/>CGPA</div>
+              </div>
+              <div class="sp-ah">
+                <div class="sp-ah-num">1925</div>
+                <div class="sp-ah-lbl">CodeChef<br/>Peak Rating</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="sp-section sp-exp-sec sp-dark-sec" id="sp-experience" data-reveal>
+      <div class="sp-container">
+        <div class="sp-sec-head">
+          <div class="sp-eyebrow sp-eyebrow-inv">WORK HISTORY</div>
+          <h2 class="sp-h2 sp-h2-inv">Where I've built things.</h2>
+          <p class="sp-sec-sub">Roles, impact metrics, and the technical decisions behind each.</p>
+        </div>
+        <div class="sp-exp-list">
+
+          <!-- Role 1 -->
+          <div class="sp-exp-card" data-reveal>
+            <div class="sp-exp-head">
+              <div class="sp-exp-meta">
+                <span class="sp-exp-badge sp-badge-blue">Dec 2024 – Present</span>
+                <span class="sp-exp-badge sp-badge-green">Current</span>
+              </div>
+              <div class="sp-exp-title-row">
+                <div>
+                  <h3 class="sp-exp-role">Senior Software Engineer</h3>
+                  <p class="sp-exp-co">Comviva (Tech Mahindra) · Gurgaon, India</p>
+                </div>
+                <button class="sp-rm-btn" data-expand="exp1" data-label-close="Hide highlights ↑">Show highlights ↓</button>
+              </div>
+              <div class="sp-exp-tags">
+                <span>Java</span><span>Spring Boot</span><span>Kafka</span>
+                <span>gRPC</span><span>PostgreSQL</span><span>Kubernetes</span>
+              </div>
+              <div class="sp-exp-impact">
+                <div class="sp-imp"><span class="sp-imp-n">+35%</span><span class="sp-imp-l">Throughput</span></div>
+                <div class="sp-imp"><span class="sp-imp-n">-40%</span><span class="sp-imp-l">Incidents</span></div>
+                <div class="sp-imp"><span class="sp-imp-n">20+</span><span class="sp-imp-l">Features</span></div>
+                <div class="sp-imp"><span class="sp-imp-n">100%</span><span class="sp-imp-l">FTR &amp; OTD</span></div>
+              </div>
+            </div>
+            <div class="sp-exp-body hidden" id="exp1">
+              <ul class="sp-exp-ul">
+                <li>Designed and developed <strong>high-throughput real-time backend systems</strong> handling millions of transactions per day using Java, Spring Boot, Kafka, and gRPC — ensuring low latency, high availability, and fault tolerance.</li>
+                <li>Owned <strong>end-to-end SDLC</strong>: requirement analysis, LLD, development, SIT/UAT, production deployment, and post-release stabilisation with <strong>zero critical production failures</strong>.</li>
+                <li>Built and enhanced microservices-based architectures for telecom-grade platforms (<strong>MRTM v7.12.2</strong> and <strong>J4U USSD</strong>) — improved scalability and throughput by <strong>35%</strong> through performance tuning.</li>
+                <li>Designed and shipped <strong>20+ production-grade features</strong> with <strong>100% First-Time-Right (FTR)</strong> and <strong>100% On-Time Delivery (OTD)</strong>, following clean code, design standards, and code reviews.</li>
+                <li>Reduced production incidents by <strong>40%</strong> through proactive monitoring, detailed RCA, and performance / load testing.</li>
+                <li>Optimised <strong>PostgreSQL queries</strong> using indexes, execution plans, and batching.</li>
+                <li>Architected and maintained a <strong>cloud-deployed, multi-tenant SaaS telecom platform</strong> supporting multiple enterprise clients with tenant-specific configurations.</li>
+                <li>Implemented <strong>multithreading and concurrency</strong> using Java Executor framework and CompletableFuture to improve throughput and reduce response latency.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Role 2 -->
+          <div class="sp-exp-card" data-reveal>
+            <div class="sp-exp-head">
+              <div class="sp-exp-meta">
+                <span class="sp-exp-badge sp-badge-blue">Jan 2023 – Dec 2024</span>
+                <span class="sp-exp-badge sp-badge-grey">2 Years</span>
+              </div>
+              <div class="sp-exp-title-row">
+                <div>
+                  <h3 class="sp-exp-role">Software Engineer</h3>
+                  <p class="sp-exp-co">Comviva (Tech Mahindra) · Gurgaon, India</p>
+                </div>
+                <button class="sp-rm-btn" data-expand="exp2" data-label-close="Hide highlights ↑">Show highlights ↓</button>
+              </div>
+              <div class="sp-exp-tags">
+                <span>Java</span><span>Spring Boot</span><span>Kafka</span>
+                <span>REST APIs</span><span>Microservices</span>
+              </div>
+              <div class="sp-exp-impact">
+                <div class="sp-imp"><span class="sp-imp-n">-25%</span><span class="sp-imp-l">Response Time</span></div>
+                <div class="sp-imp"><span class="sp-imp-n">15+</span><span class="sp-imp-l">CRs Delivered</span></div>
+                <div class="sp-imp"><span class="sp-imp-n">0</span><span class="sp-imp-l">Defect Releases</span></div>
+              </div>
+            </div>
+            <div class="sp-exp-body hidden" id="exp2">
+              <ul class="sp-exp-ul">
+                <li>Contributed to development and maintenance of telecom-grade real-time systems including <strong>MRTM v5.6</strong> and <strong>v7.11.1</strong> — feature development, enhancements, and critical bug fixes in production.</li>
+                <li>Delivered <strong>15+ customer-facing Change Requests</strong> improving system stability and reducing response time by <strong>25%</strong>.</li>
+                <li>Developed backend microservices using <strong>Java, Spring Boot, Kafka, and REST APIs</strong>, supporting high-throughput, low-latency transaction processing.</li>
+                <li>Collaborated closely with QA and support teams during <strong>SIT and UAT</strong> phases to ensure zero-defect production releases and smooth go-live deployments.</li>
+                <li>Built strong foundation in <strong>real-time and distributed systems</strong> — asynchronous processing, event-driven architecture, and production troubleshooting.</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="sp-section" id="sp-projects" data-reveal>
+      <div class="sp-container">
+        <div class="sp-sec-head">
+          <div class="sp-eyebrow">SELECTED WORK</div>
+          <h2 class="sp-h2">Production systems<br/>I've shipped.</h2>
+          <p class="sp-sec-sub sp-muted">End-to-end ownership, from design to deployment to zero-defect releases.</p>
+        </div>
+        <div class="sp-proj-grid">
+
+          <!-- MRTM -->
+          <div class="sp-proj-card" data-reveal>
+            <div class="sp-proj-visual sp-proj-mrtm">
+              <div class="sp-proj-vis-inner">
+                <div class="sp-vis-nodes">
+                  <div class="sp-vn sp-vn-a">Subscriber<br/>Events</div>
+                  <div class="sp-vn-arrow">→</div>
+                  <div class="sp-vn sp-vn-b">Campaign<br/>Engine</div>
+                  <div class="sp-vn-arrow">→</div>
+                  <div class="sp-vn sp-vn-c">Offer<br/>Delivery</div>
+                </div>
+                <div class="sp-vis-label">Mobilytix MRTM · Millions of events/day</div>
+              </div>
+            </div>
+            <div class="sp-proj-body">
+              <div class="sp-proj-header">
+                <span class="sp-proj-tag">Telecom · Real-Time</span>
+                <span class="sp-proj-impact-badge">🚀 35% Throughput ↑</span>
+              </div>
+              <h3 class="sp-proj-title">Mobilytix Realtime Marketing (MRTM)</h3>
+              <p class="sp-proj-desc">
+                Telecom-grade real-time marketing decisioning platform processing subscriber behaviour,
+                transaction patterns, and contextual signals to trigger personalised offers in real time.
+              </p>
+              <div class="sp-proj-details hidden" id="proj-mrtm">
+                <p>Built scalable microservices for <strong>campaign evaluation, offer prioritisation,
+                eligibility checks, and delivery orchestration</strong> — handling millions of events
+                per day with low latency.</p>
+                <ul class="sp-proj-ul">
+                  <li>Event-driven architecture on Apache Kafka for real-time processing</li>
+                  <li>gRPC for low-latency inter-service communication</li>
+                  <li>Multi-tenant SaaS design with tenant-specific campaign configs</li>
+                  <li>Horizontal scaling via Kubernetes — zero downtime deployments</li>
+                  <li>PostgreSQL with index tuning for sub-10ms eligibility checks</li>
+                </ul>
+              </div>
+              <div class="sp-proj-stack">
+                <span>Java</span><span>Spring Boot</span><span>Kafka</span>
+                <span>gRPC</span><span>PostgreSQL</span><span>Kubernetes</span>
+              </div>
+              <div class="sp-proj-footer">
+                <button class="sp-rm-btn sp-proj-rm" data-expand="proj-mrtm" data-label-close="Close ↑">Read more →</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CUIG -->
+          <div class="sp-proj-card" data-reveal>
+            <div class="sp-proj-visual sp-proj-cuig">
+              <div class="sp-proj-vis-inner">
+                <div class="sp-vis-flow">
+                  <div class="sp-vf-box">HTTP / REST</div>
+                  <div class="sp-vf-line">↓</div>
+                  <div class="sp-vf-box sp-vf-main">CUIG Gateway</div>
+                  <div class="sp-vf-fork">
+                    <div class="sp-vf-box sp-vf-sm">Kafka</div>
+                    <div class="sp-vf-box sp-vf-sm">Consul</div>
+                  </div>
+                  <div class="sp-vf-line">↓</div>
+                  <div class="sp-vf-box">Downstream Systems</div>
+                </div>
+                <div class="sp-vis-label">CUIG · 40% less integration effort</div>
+              </div>
+            </div>
+            <div class="sp-proj-body">
+              <div class="sp-proj-header">
+                <span class="sp-proj-tag">Integration · Gateway</span>
+                <span class="sp-proj-impact-badge">🔗 40% Effort ↓</span>
+              </div>
+              <h3 class="sp-proj-title">Centralized Unified Integration Gateway (CUIG)</h3>
+              <p class="sp-proj-desc">
+                Centralized integration gateway enabling seamless upstream and downstream communication
+                across multiple telecom platforms with configuration-driven routing.
+              </p>
+              <div class="sp-proj-details hidden" id="proj-cuig">
+                <p>Implemented <strong>HTTP and Kafka-based asynchronous integrations</strong> with
+                config-driven routing. Leveraged <strong>PostgreSQL and Consul</strong> for dynamic
+                configuration management.</p>
+                <ul class="sp-proj-ul">
+                  <li>Config-driven routing — zero code changes for new integrations</li>
+                  <li>Consul for distributed config &amp; service discovery</li>
+                  <li>Async Kafka messaging for decoupled downstream delivery</li>
+                  <li>PostgreSQL for audit trail and routing rule persistence</li>
+                  <li>Reduced deployment &amp; integration effort by <strong>40%</strong></li>
+                </ul>
+              </div>
+              <div class="sp-proj-stack">
+                <span>Java</span><span>Spring Boot</span><span>Kafka</span>
+                <span>PostgreSQL</span><span>Consul</span><span>REST</span>
+              </div>
+              <div class="sp-proj-footer">
+                <button class="sp-rm-btn sp-proj-rm" data-expand="proj-cuig" data-label-close="Close ↑">Read more →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="sp-section sp-dark-sec sp-skills-sec" id="sp-skills" data-reveal>
+      <div class="sp-container">
+        <div class="sp-sec-head">
+          <div class="sp-eyebrow sp-eyebrow-inv">TECHNICAL SKILLS</div>
+          <h2 class="sp-h2 sp-h2-inv">The tools I think with.</h2>
+        </div>
+        <div class="sp-skills-grid">
+          <div class="sp-skill-cat" data-reveal>
+            <div class="sp-skill-cat-title"><span class="sp-skill-icon">☕</span>Languages &amp; Core</div>
+            <div class="sp-skill-pills">
+              <span class="sp-sk sp-sk-hot">Java 17+</span>
+              <span class="sp-sk sp-sk-hot">Concurrency</span>
+              <span class="sp-sk">Python</span>
+              <span class="sp-sk">SQL</span>
+              <span class="sp-sk">Shell Scripting</span>
+              <span class="sp-sk">OOP &amp; DSA</span>
+            </div>
+          </div>
+          <div class="sp-skill-cat" data-reveal>
+            <div class="sp-skill-cat-title"><span class="sp-skill-icon">⚙</span>Backend &amp; Distributed</div>
+            <div class="sp-skill-pills">
+              <span class="sp-sk sp-sk-hot">Spring Boot</span>
+              <span class="sp-sk sp-sk-hot">Apache Kafka</span>
+              <span class="sp-sk sp-sk-hot">gRPC</span>
+              <span class="sp-sk">Microservices</span>
+              <span class="sp-sk">Hibernate / JPA</span>
+              <span class="sp-sk">REST APIs</span>
+              <span class="sp-sk">Spring Cloud Gateway</span>
+              <span class="sp-sk">Angular</span>
+            </div>
+          </div>
+          <div class="sp-skill-cat" data-reveal>
+            <div class="sp-skill-cat-title"><span class="sp-skill-icon">🗄</span>Data &amp; Storage</div>
+            <div class="sp-skill-pills">
+              <span class="sp-sk sp-sk-hot">PostgreSQL</span>
+              <span class="sp-sk sp-sk-hot">Hazelcast</span>
+              <span class="sp-sk">MySQL</span>
+              <span class="sp-sk">SingleStore</span>
+              <span class="sp-sk">VoltDB</span>
+              <span class="sp-sk">Oracle</span>
+            </div>
+          </div>
+          <div class="sp-skill-cat" data-reveal>
+            <div class="sp-skill-cat-title"><span class="sp-skill-icon">☁</span>Cloud &amp; Infrastructure</div>
+            <div class="sp-skill-pills">
+              <span class="sp-sk sp-sk-hot">Docker</span>
+              <span class="sp-sk sp-sk-hot">Kubernetes</span>
+              <span class="sp-sk">AWS</span>
+              <span class="sp-sk">GCP</span>
+              <span class="sp-sk">CI/CD</span>
+              <span class="sp-sk">Linux</span>
+              <span class="sp-sk">SonarQube</span>
+            </div>
+          </div>
+          <div class="sp-skill-cat" data-reveal>
+            <div class="sp-skill-cat-title"><span class="sp-skill-icon">✓</span>Practices</div>
+            <div class="sp-skill-pills">
+              <span class="sp-sk sp-sk-hot">System Design</span>
+              <span class="sp-sk sp-sk-hot">TDD</span>
+              <span class="sp-sk">JUnit</span>
+              <span class="sp-sk">Mockito</span>
+              <span class="sp-sk">Agile / Scrum</span>
+              <span class="sp-sk">Jira</span>
+              <span class="sp-sk">Confluence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="sp-section sp-ach-sec" id="sp-ach" data-reveal>
+      <div class="sp-container">
+        <div class="sp-sec-head">
+          <div class="sp-eyebrow">RECOGNITION</div>
+          <h2 class="sp-h2">Numbers that matter.</h2>
+        </div>
+        <div class="sp-ach-grid">
+          <div class="sp-ach-card sp-ach-big" data-reveal>
+            <div class="sp-ach-icon">🏆</div>
+            <div class="sp-ach-title">Top Performer</div>
+            <div class="sp-ach-sub">FY 2024–2025 · Comviva (Tech Mahindra)</div>
+            <p class="sp-ach-desc">Recognized for consistent delivery, technical excellence, and full end-to-end ownership across two major telecom platforms.</p>
+          </div>
+          <div class="sp-ach-card" data-reveal>
+            <div class="sp-ach-icon">⭐</div>
+            <div class="sp-ach-num-big"><span class="sp-stat-n" data-count="4">0</span>★</div>
+            <div class="sp-ach-title">CodeChef Rating</div>
+            <div class="sp-ach-sub">Peak rating <strong>1925</strong></div>
+          </div>
+          <div class="sp-ach-card" data-reveal>
+            <div class="sp-ach-icon">🎯</div>
+            <div class="sp-ach-num-big"><span class="sp-stat-n" data-count="100">0</span>%</div>
+            <div class="sp-ach-title">First-Time-Right</div>
+            <div class="sp-ach-sub">20+ production features shipped</div>
+          </div>
+          <div class="sp-ach-card" data-reveal>
+            <div class="sp-ach-icon">🛡</div>
+            <div class="sp-ach-num-big">Zero</div>
+            <div class="sp-ach-title">Critical Failures</div>
+            <div class="sp-ach-sub">Across all production deployments</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="sp-section sp-edu-sec" data-reveal>
+      <div class="sp-container">
+        <div class="sp-sec-head">
+          <div class="sp-eyebrow">EDUCATION</div>
+          <h2 class="sp-h2">Where it started.</h2>
+        </div>
+        <div class="sp-edu-card">
+          <div class="sp-edu-left">
+            <div class="sp-edu-logo">MSIT</div>
+          </div>
+          <div class="sp-edu-body">
+            <h3 class="sp-edu-name">Maharaja Surajmal Institute of Technology</h3>
+            <p class="sp-edu-deg">Bachelor of Technology · Computer Science &amp; Engineering</p>
+            <p class="sp-edu-loc">📍 New Delhi, India · 2019 – 2023</p>
+          </div>
+          <div class="sp-edu-right">
+            <div class="sp-edu-cgpa">
+              <div class="sp-edu-cgpa-n">8.8</div>
+              <div class="sp-edu-cgpa-l">CGPA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="sp-section sp-dark-sec sp-contact-sec" id="sp-contact" data-reveal>
+      <div class="sp-container sp-contact-inner">
+        <div class="sp-pill sp-pill-white">Let's collaborate</div>
+        <h2 class="sp-h2 sp-h2-inv sp-contact-h2">Got something<br/>great to build?</h2>
+        <p class="sp-contact-sub">I'm open to full-time roles, contract projects, or just a technical conversation. Reach out and let's see what we can create together.</p>
+        <div class="sp-contact-btns">
+          <button class="sp-btn-primary sp-btn-inv" (click)="openContact.emit()">Send a Message →</button>
+          <a class="sp-btn-ghost sp-btn-ghost-inv" href="mailto:ashusig2@gmail.com">ashusig2@gmail.com</a>
+        </div>
+        <div class="sp-contact-info">
+          <a href="tel:+919667952897" class="sp-ci">📞 +91 9667952897</a>
+          <a href="#" class="sp-ci">LinkedIn</a>
+          <a href="#" class="sp-ci">GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="sp-footer">
+      <div class="sp-footer-inner">
+        <span>© 2025 Ashutosh Singh</span>
+        <span>Senior Software Engineer · Java · Spring Boot · Kafka</span>
+        <a href="#" id="static-go-3d">Switch to 3D Drive ↗</a>
+      </div>
+    </footer>
+
+  </div>
+</div>
