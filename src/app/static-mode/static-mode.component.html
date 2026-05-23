@@ -142,8 +142,9 @@
         <div class="sp-about-grid">
           <div class="sp-about-photo-col">
             <div class="sp-photo-card">
-              <img src="assets/photo.jpg" alt="Ashutosh Singh" class="sp-photo-img" (error)="$event.target.style.display='none'" />
-              <div class="sp-photo-avatar">AS</div>
+              <img src="assets/photo.jpg" alt="Ashutosh Singh" class="sp-photo-img"
+                   (error)="$any($event.target).style.display='none'; photoFallback=true" />
+              <div class="sp-photo-avatar" [style.display]="photoFallback ? 'flex' : 'none'">AS</div>
               <div class="sp-photo-glow"></div>
             </div>
             <div class="sp-photo-meta">

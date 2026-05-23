@@ -104,20 +104,20 @@ export class GameService {
   private boundResize: () => void;
 
   // Physics constants
-  private readonly MAX_SPEED = 0.55;
-  private readonly REV_SPEED = 0.25;
-  private readonly ACCEL = 0.0045;
-  private readonly BRAKE = 0.012;
+  private readonly MAX_SPEED = 0.9;
+  private readonly REV_SPEED = 0.35;
+  private readonly ACCEL = 0.009;
+  private readonly BRAKE = 0.018;
   private readonly FRICTION = 0.014;
-  private readonly STEER_RATE = 0.022;
+  private readonly STEER_RATE = 0.028;
   private readonly PLAYGROUND = 360;
-  private readonly AUTO_READ_DUR = 220;
+  private readonly AUTO_READ_DUR = 120;
   private readonly AUTO_SPEED: number;
   private readonly AUTO_ARRIVE = 5;
   private readonly PLAYGROUND_RADIUS: number;
 
   constructor(private canvas: HTMLCanvasElement, private cb: any) {
-    this.AUTO_SPEED = this.MAX_SPEED * 0.72;
+    this.AUTO_SPEED = this.MAX_SPEED * 0.92;
     this.PLAYGROUND_RADIUS = this.PLAYGROUND / 2 - 6;
     this.boundMouseMove = this.onMouseMove.bind(this);
     this.boundKeyDown = this.onKeyDown.bind(this);

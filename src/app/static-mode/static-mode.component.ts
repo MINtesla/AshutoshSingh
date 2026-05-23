@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 })
 export class StaticModeComponent implements AfterViewInit {
   @Output() openContact = new EventEmitter<void>();
+  photoFallback = false;
 
   private animationsInited = false;
 
