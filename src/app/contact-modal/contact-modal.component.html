@@ -1,24 +1,36 @@
 <div class="contact-modal-overlay" [class.hidden]="!open" (click)="dismiss($event)">
   <div class="contact-modal">
     <button class="close-btn" (click)="close.emit()">×</button>
-    <h2>Get in touch</h2>
-    <p class="contact-sub">Send me a message — it'll open your email client pre-filled.</p>
-    <form (ngSubmit)="submit()">
-      <div class="contact-field">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="name" name="name" placeholder="Your name" required />
-      </div>
-      <div class="contact-field">
-        <label>Email</label>
-        <input type="email" [(ngModel)]="email" name="email" placeholder="your@email.com" required />
-      </div>
-      <div class="contact-field">
-        <label>Message</label>
-        <textarea [(ngModel)]="message" name="message" rows="5" placeholder="Your message…" required></textarea>
-      </div>
-      <button type="submit" class="sp-btn-primary" style="width:100%;justify-content:center">
-        Open Email Client →
-      </button>
-    </form>
+
+    <!-- Success state -->
+    <div *ngIf="sent" class="contact-success">
+      <div class="contact-success-icon">✓</div>
+      <h2>Message sent!</h2>
+      <p>I'll get back to you soon.</p>
+    </div>
+
+    <!-- Form state -->
+    <ng-container *ngIf="!sent">
+      <h2>Get in touch</h2>
+      <p class="contact-sub">Fill the form below — message lands directly in my inbox.</p>
+      <form (ngSubmit)="submit()">
+        <div class="contact-field">
+          <label>Name</label>
+          <input type="text" [(ngModel)]="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="contact-field">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="email" name="email" placeholder="your@email.com" required />
+        </div>
+        <div class="contact-field">
+          <label>Message</label>
+          <textarea [(ngModel)]="message" name="message" rows="5" placeholder="Your message…" required></textarea>
+        </div>
+        <div *ngIf="error" class="contact-error">{{ error }}</div>
+        <button type="submit" class="sp-btn-primary" style="width:100%;justify-content:center" [disabled]="sending">
+          {{ sending ? 'Sending…' : 'Send Message →' }}
+        </button>
+      </form>
+    </ng-container>
   </div>
 </div>

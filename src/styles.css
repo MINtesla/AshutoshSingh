@@ -892,6 +892,7 @@ kbd {
   .sp-ticker { display: none; }
 }
 @media (max-width: 600px) {
+  .hud-hide-mobile { display: none !important; }
   .hud-top { flex-direction: column; padding-top: 70px; }
   .hud-card { width: 100%; }
   .controls-help { font-size: 10px; padding: 6px 12px; }
@@ -928,3 +929,25 @@ kbd {
   .sp-nav-inner { padding: 0 16px; }
   .sp-logo { font-size: 18px; }
 }
+
+/* =========================================================
+   CONTACT MODAL — success & error states
+   ========================================================= */
+.contact-success {
+  text-align: center; padding: 20px 0;
+}
+.contact-success-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: #22c55e; color: #fff;
+  font-size: 26px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+.contact-success h2 { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+.contact-success p  { color: #6b7280; font-size: 14px; }
+.contact-error {
+  background: #fef2f2; border: 1px solid #fca5a5;
+  color: #dc2626; font-size: 13px;
+  padding: 10px 14px; border-radius: 8px; margin-bottom: 12px;
+}
+button[disabled] { opacity: 0.6; cursor: not-allowed; }

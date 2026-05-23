@@ -3,7 +3,7 @@
 
   <div class="hud">
     <div class="hud-row hud-top">
-      <div class="hud-card">
+      <div class="hud-card hud-hide-mobile">
         <div class="hud-label">Speed</div>
         <div class="hud-value"><span>{{speed}}</span><small> km/h</small></div>
       </div>
@@ -12,7 +12,7 @@
         <div class="hud-value" [style.color]="currentSectionColor">{{currentSection}}</div>
         <div class="hud-hint">{{interactHint}}</div>
       </div>
-      <div class="hud-card">
+      <div class="hud-card hud-hide-mobile">
         <div class="hud-label">Distance</div>
         <div class="hud-value"><span>{{distance}}</span><small> m</small></div>
       </div>

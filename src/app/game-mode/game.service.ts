@@ -111,7 +111,7 @@ export class GameService {
   private readonly FRICTION = 0.014;
   private readonly STEER_RATE = 0.032;
   private readonly PLAYGROUND = 360;
-  private readonly AUTO_READ_DUR = 50;
+  private readonly AUTO_READ_DUR = 300; // 5 seconds at 60fps
   private readonly AUTO_SPEED: number;
   private readonly AUTO_ARRIVE = 5;
   private readonly PLAYGROUND_RADIUS: number;
@@ -440,6 +440,7 @@ export class GameService {
     this.autoMode = !this.autoMode;
     if (this.autoMode) {
       this.resetCar();
+      this.velocity = this.MAX_SPEED * 0.7; // instant speed kick — no slow ramp-up
       this.autoState = 1;
       this.autoWpIdx = 0;
       this.closePanel();
