@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.webglSupported = this.detectWebGL();
     const saved = this.getSavedMode();
-    this.setMode(!this.webglSupported ? 'static' : (saved === 'static' ? 'static' : '3d'));
+    this.setMode(saved === '3d' ? '3d' : 'static');
     setTimeout(() => this.loaderFade = true, 400);
     setTimeout(() => this.loaderHidden = true, 1000);
   }

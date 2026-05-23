@@ -755,6 +755,8 @@ kbd {
   font-size: 44px; font-weight: 900; color: #0a0a0f;
   letter-spacing: -2px; line-height: 1;
 }
+/* Fix: sp-stat-n is white by default (for dark hero), override to dark inside achievement cards */
+.sp-ach-num-big .sp-stat-n { color: #0a0a0f; }
 .sp-ach-title { font-size: 15px; font-weight: 700; color: #0a0a0f; }
 .sp-ach-big .sp-ach-title { color: #f0f0f8; }
 .sp-ach-sub { font-size: 12px; color: #6b7280; }
@@ -875,7 +877,7 @@ kbd {
   .sp-hero { padding: 72px 0 56px; }
   .sp-hero-inner { grid-template-columns: 1fr; gap: 40px; }
   .sp-hero-right { display: none; }
-  .sp-hero-stats { flex-wrap: wrap; }
+  .sp-hero-stats { flex-wrap: wrap; gap: 16px; }
   .sp-about-grid { grid-template-columns: 1fr; gap: 40px; }
   .sp-about-highlights { grid-template-columns: repeat(2, 1fr); }
   .sp-skills-grid { grid-template-columns: repeat(2, 1fr); }
@@ -886,23 +888,43 @@ kbd {
   .sp-edu-cgpa { margin-top: 8px; }
   .sp-exp-title-row { flex-direction: column; align-items: flex-start; gap: 12px; }
   .sp-contact-info { flex-direction: column; align-items: center; gap: 12px; }
+  .sp-exp-impact { flex-wrap: wrap; gap: 12px; }
+  .sp-ticker { display: none; }
 }
 @media (max-width: 600px) {
   .hud-top { flex-direction: column; padding-top: 70px; }
   .hud-card { width: 100%; }
   .controls-help { font-size: 10px; padding: 6px 12px; }
   .sp-container { padding: 0 16px; }
-  .sp-h2 { font-size: 28px; }
-  .sp-h1 { font-size: 36px; }
+  .sp-section { padding: 56px 0; }
+  .sp-h2 { font-size: 26px; }
+  .sp-h1 { font-size: 32px; line-height: 1.15; }
   .sp-hero { padding: 56px 0 40px; }
-  .sp-hero-btns { flex-direction: column; align-items: stretch; }
+  .sp-hero-sub { font-size: 15px; }
+  .sp-hero-btns { flex-direction: column; align-items: stretch; gap: 10px; }
   .sp-hero-btns .sp-btn-primary,
-  .sp-hero-btns .sp-btn-ghost { text-align: center; justify-content: center; }
+  .sp-hero-btns .sp-btn-ghost { text-align: center; justify-content: center; width: 100%; }
+  .sp-hero-stats { gap: 12px; }
+  .sp-stat-n { font-size: 28px; }
+  .sp-about-photo-col { align-items: center; }
+  .sp-photo-card { width: 180px; height: 220px; }
   .sp-about-highlights { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .sp-ah-num { font-size: 28px; }
   .sp-skills-grid { grid-template-columns: 1fr; }
   .sp-ach-grid { grid-template-columns: 1fr; }
   .sp-ach-big { grid-column: span 1; }
+  .sp-ach-num-big { font-size: 36px; }
   .sp-stat-div { display: none; }
   .sp-nav-cta { display: none; }
   .sp-footer-inner { flex-direction: column; align-items: center; text-align: center; }
+  .sp-exp-impact { flex-wrap: wrap; gap: 8px; }
+  .sp-imp { min-width: 70px; }
+  .sp-exp-tags { flex-wrap: wrap; }
+  .sp-proj-visual { height: 160px; }
+  .sp-socials { gap: 8px; }
+  .sp-social-link { font-size: 13px; }
+  .mode-switch { top: 10px; right: 10px; }
+  .mode-btn { padding: 6px 12px; font-size: 11px; }
+  .sp-nav-inner { padding: 0 16px; }
+  .sp-logo { font-size: 18px; }
 }
