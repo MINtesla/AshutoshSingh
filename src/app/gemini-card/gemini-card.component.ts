@@ -23,7 +23,7 @@ export class GeminiCardComponent implements OnInit {
     this.card = null;
     this.selectedOption = null;
     this.revealed = false;
-    this.card = await this.svc.generate();
+    this.card = await this.svc.generateCard();
     this.loading = false;
   }
 

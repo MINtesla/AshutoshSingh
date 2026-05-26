@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 export interface GeminiCard {
   type: 'code' | 'fact' | 'quiz' | 'tip';
   title: string;
@@ -16,67 +18,114 @@ Generate ONE item randomly chosen from these 4 types. Pick any type you like:
 4. type "tip"   — A practical system design tip or pattern used at scale (2-3 sentences with a punchy title).
 
 Respond ONLY with valid JSON (no markdown, no backticks) in this exact shape:
-{
-  "type": "code",
-  "title": "...",
-  "content": "...",
-  "language": "java"
-}
-OR for quiz:
-{
-  "type": "quiz",
-  "title": "Quick Challenge",
-  "content": "Question text here?",
-  "options": ["A. ...", "B. ...", "C. ...", "D. ..."],
-  "answer": "B"
-}
-OR for fact/tip:
-{
-  "type": "fact",
-  "title": "...",
-  "content": "..."
-}`;
+For code: {"type":"code","title":"...","content":"...","language":"java"}
+For quiz:  {"type":"quiz","title":"Quick Challenge","content":"Question?","options":["A. ...","B. ...","C. ...","D. ..."],"answer":"B"}
+For fact/tip: {"type":"fact","title":"...","content":"..."}`;
 
 export class GeminiService {
-  // Get free key at: https://aistudio.google.com/app/apikey
-  private readonly API_KEY = 'YOUR_GEMINI_API_KEY';
-  private readonly MODEL = 'gemini-2.0-flash';
-  private readonly URL = `https://generativelanguage.googleapis.com/v1beta/models/${this.MODEL}:generateContent?key=${this.API_KEY}`;
 
-  async generate(): Promise<GeminiCard> {
-    if (this.API_KEY === 'YOUR_GEMINI_API_KEY') {
-      return this.fallback();
-    }
+  // Mirrors your Java GeminiApiService config
+  private readonly apiKey   = environment.geminiApiKey;
+  private readonly model    = 'gemini-1.5-flash';
+  private readonly baseUrl  = 'https://generativelanguage.googleapis.com/v1beta/models';
 
-    const res = await fetch(this.URL, {
+  /**
+   * Generate text content using Gemini API.
+   * Mirrors: GeminiApiService.generate(prompt, maxTokens, temperature)
+   */
+  async generate(prompt: string, maxTokens = 512, temperature = 1.2): Promise<string> {
+    const url = `${this.baseUrl}/${this.model}:generateContent?key=${this.apiKey}`;
+
+    const requestBody = {
+      contents: [
+        { role: 'user', parts: [{ text: prompt }] }
+      ],
+      generationConfig: {
+        temperature,
+        maxOutputTokens: maxTokens,
+        topP: 0.9,
+        topK: 40,
+      },
+      safetySettings: [
+        { category: 'HARM_CATEGORY_HARASSMENT',        threshold: 'BLOCK_NONE' },
+        { category: 'HARM_CATEGORY_HATE_SPEECH',       threshold: 'BLOCK_NONE' },
+        { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_NONE' },
+        { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_NONE' },
+      ],
+    };
+
+    const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: PROMPT }] }],
-        generationConfig: { temperature: 1.2, maxOutputTokens: 512 },
-      }),
+      body: JSON.stringify(requestBody),
     });
 
-    if (!res.ok) return this.fallback();
+    if (!response.ok) {
+      throw new Error(`Gemini API call failed: ${response.status}`);
+    }
 
-    const data = await res.json();
-    const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text ?? '';
+    const body = await response.text();
+    return this.extractText(body);
+  }
 
+  /**
+   * Mirrors: GeminiApiService.generateDocument(prompt)
+   * Lower temperature, higher token limit for structured output.
+   */
+  async generateDocument(prompt: string): Promise<string> {
+    return this.generate(prompt, 8192, 0.2);
+  }
+
+  /**
+   * Main method used by GeminiCardComponent.
+   * Calls generate() and parses JSON into a GeminiCard.
+   */
+  async generateCard(): Promise<GeminiCard> {
+    if (!this.apiKey || this.apiKey === 'YOUR_GEMINI_API_KEY' || this.apiKey === 'GEMINI_KEY_PLACEHOLDER') {
+      return this.fallback();
+    }
     try {
-      // strip any accidental markdown fences
+      const raw = await this.generate(PROMPT, 512, 1.2);
+      // Strip accidental markdown fences (mirrors your extractText safety)
       const clean = raw.replace(/```json|```/g, '').trim();
       return JSON.parse(clean) as GeminiCard;
-    } catch {
+    } catch (e) {
+      console.error('Gemini card generation failed:', e);
       return this.fallback();
     }
   }
 
+  /**
+   * Mirrors: GeminiApiService.extractText(responseBody)
+   */
+  private extractText(responseBody: string): string {
+    try {
+      const root = JSON.parse(responseBody);
+      const candidates = root?.candidates;
+      if (Array.isArray(candidates) && candidates.length > 0) {
+        const parts = candidates[0]?.content?.parts;
+        if (Array.isArray(parts) && parts.length > 0) {
+          return parts[0]?.text ?? '';
+        }
+      }
+      const error = root?.error;
+      if (error) {
+        throw new Error(`Gemini API error: ${error.message}`);
+      }
+      console.warn('Unexpected Gemini response structure:', responseBody);
+      return '';
+    } catch (e) {
+      console.error('Failed to parse Gemini response:', e);
+      throw new Error('Failed to parse Gemini response');
+    }
+  }
+
+  /** Fallback content when API key is not set */
   private fallback(): GeminiCard {
     const items: GeminiCard[] = [
       {
-        type: 'code',
+        type: 'code', language: 'java',
         title: 'Resilient Kafka Consumer',
-        language: 'java',
         content:
 `@KafkaListener(topics = "events", groupId = "svc")
 public void consume(ConsumerRecord<String, Event> rec) {
@@ -92,18 +141,18 @@ public void consume(ConsumerRecord<String, Event> rec) {
       },
       {
         type: 'fact',
-        title: 'Did you know?',
-        content: 'Kafka can sustain >1 million messages/sec on a single broker by batching writes to disk sequentially — making it faster than random-access databases despite being disk-based.',
+        title: 'Did You Know?',
+        content: 'Kafka sustains >1M messages/sec on a single broker by batching sequential disk writes — faster than random-access DBs despite being disk-based.',
       },
       {
         type: 'tip',
         title: 'Circuit Breaker Pattern',
-        content: 'Wrap downstream calls in a circuit breaker (Resilience4j). After N failures the circuit opens — requests fail-fast instead of piling up, protecting your thread pool from cascading failure.',
+        content: 'Wrap downstream calls in Resilience4j. After N failures the circuit opens — requests fail-fast instead of piling up, protecting your thread pool from cascading failure.',
       },
       {
         type: 'quiz',
         title: 'Quick Challenge',
-        content: 'Which Java concurrency construct is best for composing async microservice calls without blocking threads?',
+        content: 'Which construct is best for composing async microservice calls without blocking threads?',
         options: ['A. Thread.join()', 'B. CompletableFuture', 'C. synchronized block', 'D. CountDownLatch'],
         answer: 'B',
       },
