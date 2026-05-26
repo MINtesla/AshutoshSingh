@@ -66,35 +66,7 @@
           </div>
         </div>
         <div class="sp-hero-right">
-          <div class="sp-code-win">
-            <div class="sp-code-bar">
-              <div class="sp-dots"><span></span><span></span><span></span></div>
-              <div class="sp-code-file">TrafficSegregationService.java</div>
-            </div>
-            <pre class="sp-code"><span class="ck">&#64;Service</span>
-<span class="ck">&#64;Slf4j</span>
-<span class="cc">public class</span> <span class="cg">TrafficSegregationService</span> &#123;
-
-  <span class="ck">&#64;Autowired</span>
-  <span class="cc">private</span> <span class="cg">MsisdnCacheService</span> cacheService;
-  <span class="ck">&#64;Autowired</span>
-  <span class="cc">private</span> <span class="cg">CuigForwarderService</span> forwarder;
-
-  <span class="cc">public</span> <span class="cg">CompletableFuture</span>&lt;<span class="cg">RoutingDecision</span>&gt;
-        route(<span class="cg">TrafficEvent</span> event) &#123;
-
-    <span class="cc">return</span> <span class="cg">CompletableFuture</span>
-      .supplyAsync(() -&gt;
-          cacheService.lookup(event.getMsisdn()))
-      .thenApply(sub -&gt; evaluate(event, sub))
-      .thenCompose(forwarder::dispatch)
-      .exceptionally(ex -&gt; &#123;
-        log.error(<span class="cs">"routing failed"</span>, ex);
-        <span class="cc">return</span> <span class="cg">RoutingDecision</span>.fallback();
-      &#125;);
-  &#125;
-&#125;</pre>
-          </div>
+          <app-gemini-card></app-gemini-card>
           <div class="sp-hero-badges">
             <span class="sp-badge">Java 17</span>
             <span class="sp-badge">Spring Boot</span>

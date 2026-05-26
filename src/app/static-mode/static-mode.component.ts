@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GeminiCardComponent } from '../gemini-card/gemini-card.component';
 
 @Component({
   selector: 'app-static-mode',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, GeminiCardComponent],
   templateUrl: './static-mode.component.html',
 })
 export class StaticModeComponent implements AfterViewInit {

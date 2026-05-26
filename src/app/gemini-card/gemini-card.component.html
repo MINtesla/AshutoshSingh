@@ -1,0 +1,60 @@
+<div class="gc-wrap">
+
+  <!-- Header bar -->
+  <div class="gc-bar">
+    <div class="gc-dots"><span></span><span></span><span></span></div>
+    <div class="gc-label" *ngIf="!loading">{{ typeLabel() }}</div>
+    <div class="gc-label" *ngIf="loading">✦ Gemini is thinking…</div>
+    <button class="gc-refresh" (click)="load()" title="Generate new" [disabled]="loading">↻</button>
+  </div>
+
+  <!-- Loading skeleton -->
+  <div class="gc-body" *ngIf="loading">
+    <div class="gc-skeleton">
+      <div class="gc-sk-line gc-sk-w60"></div>
+      <div class="gc-sk-line gc-sk-w90"></div>
+      <div class="gc-sk-line gc-sk-w75"></div>
+      <div class="gc-sk-line gc-sk-w50"></div>
+      <div class="gc-sk-line gc-sk-w80"></div>
+    </div>
+  </div>
+
+  <!-- Code card -->
+  <div class="gc-body" *ngIf="!loading && card?.type === 'code'">
+    <div class="gc-title">{{ card!.title }}</div>
+    <pre class="gc-code">{{ card!.content }}</pre>
+  </div>
+
+  <!-- Fact / Tip card -->
+  <div class="gc-body gc-prose" *ngIf="!loading && (card?.type === 'fact' || card?.type === 'tip')">
+    <div class="gc-title">{{ card!.title }}</div>
+    <p class="gc-text">{{ card!.content }}</p>
+  </div>
+
+  <!-- Quiz card -->
+  <div class="gc-body" *ngIf="!loading && card?.type === 'quiz'">
+    <div class="gc-title">{{ card!.title }}</div>
+    <p class="gc-question">{{ card!.content }}</p>
+    <div class="gc-options">
+      <button
+        *ngFor="let opt of card!.options"
+        class="gc-opt"
+        [class.gc-opt-correct]="revealed && isCorrect(opt)"
+        [class.gc-opt-wrong]="isWrong(opt)"
+        [class.gc-opt-selected]="selectedOption === opt[0]"
+        (click)="pick(opt)"
+        [disabled]="revealed">
+        {{ opt }}
+      </button>
+    </div>
+    <div class="gc-answer-msg" *ngIf="revealed">
+      {{ selectedOption === card!.answer ? '✓ Correct!' : '✗ Answer: ' + card!.answer }}
+    </div>
+  </div>
+
+  <!-- Gemini badge -->
+  <div class="gc-footer">
+    <span class="gc-badge">✦ Powered by Gemini</span>
+  </div>
+
+</div>
